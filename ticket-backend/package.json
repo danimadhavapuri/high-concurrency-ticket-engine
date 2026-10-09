@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "dev:cluster": "tsx src/cluster.ts",
-    "build": "tsc",
+    "build": "prisma generate && tsc",
+    "postinstall": "prisma generate",
     "start": "node dist/server.js",
     "test": "vitest run",
     "test:watch": "vitest",
@@ -29,7 +30,9 @@
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.10.4",
     "nodemailer": "^10.0.13",
+    "prisma": "^5.22.0",
     "socket.io": "^4.8.4",
+    "typescript": "^6.0.3",
     "zod": "^4.6.5"
   },
   "devDependencies": {
@@ -40,10 +43,8 @@
     "@types/node": "^26.6.4",
     "@types/supertest": "^7.2.1",
     "ioredis-mock": "^8.13.1",
-    "prisma": "^5.22.0",
     "supertest": "^7.3.1",
     "tsx": "^4.23.15",
-    "typescript": "^6.0.3",
     "vite": "^8.3.3",
     "vitest": "^5.0.3"
   }
