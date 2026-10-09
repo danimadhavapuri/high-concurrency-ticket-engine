@@ -21,7 +21,37 @@ Engineered to prevent race conditions, ticket scalping, and double-booking durin
 
 ## ⚡ High-Concurrency Architecture Overview
 
-\`\`\`text
+```mermaid
+flowchart TD
+    Users["👥 10,000+ Concurrent Users"] --> Edge["⚡ HTTPS / Reverse Proxy"]
+
+    subgraph CDN["Static Client Tier"]
+        Edge --> Vercel["🌐 React 19 Frontend (Vercel Edge CDN)"]
+    end
+
+    subgraph Cluster["Compute Tier (16-Core Node.js Cluster)"]
+        Edge --> Master["Node.js Cluster Master"]
+        Master --> W1["Worker 1 (PID 20288)"]
+        Master --> W2["Worker 2 (PID 3976)"]
+        Master --> W16["Worker 16 (Self-Healing Failover)"]
+    end
+
+    subgraph Concurrency["Shield & State Synchronization"]
+        W1 & W2 & W16 --> Limiter["🛡️ Anti-Scalper Rate Limiter (20 req / 10s)"]
+        Limiter --> Redis["⚡ Redis Distributed Lock Shield (O(1), 3-min TTL)"]
+        W1 & W2 & W16 --> Socket["🔌 Socket.io WebSocket Bus"]
+    end
+
+    subgraph Persistence["ACID Persistence Engine"]
+        Redis -->|Only 1 Lock Winner Proceeds| DB[("🗄️ PostgreSQL + Prisma Transactions\n@@unique([showtime_id, seat_id])")]
+    end
+
+    Socket -.->|Real-Time Broadcast (Yellow / Red State)| Users
+```
+
+### Detailed Flowchart Breakdown
+
+```text
                                    [ 10,000+ Concurrent Users ]
                                                 │
                                                 ▼
@@ -46,7 +76,7 @@ Engineered to prevent race conditions, ticket scalping, and double-booking durin
 • @@unique([showtime_id, seat_id])
 • prisma.$transaction Atomic Rollback
 • Zero Double-Booking Guarantee
-\`\`\`
+```
 
 ---
 
@@ -101,36 +131,36 @@ Engineered to prevent race conditions, ticket scalping, and double-booking durin
 ### 1. Concurrency Unit & Integration Tests (Vitest)
 Simulates 10 concurrent requests firing at the exact same millisecond against a single seat to verify race-condition prevention:
 
-\`\`\`bash
+```bash
 cd ticket-backend
 npm test
-\`\`\`
+```
 
 **Test Suite Results:**
-\`\`\`text
+```text
  ✓ tests/lockService.test.ts (4 tests) 16ms
  ✓ tests/bookingLock.test.ts (2 tests) 153ms
 
  Test Files  2 passed (2)
       Tests  6 passed (6)
    Duration  1.68s
-\`\`\`
+```
 
 ### 2. High-Capacity Stress Test Suite (1,000+ Concurrent Users)
 Simulates 1,000 simultaneous virtual users competing for tickets to verify server stability and compute latency percentiles:
 
-\`\`\`bash
+```bash
 cd ticket-backend
 npm run test:stress
-\`\`\`
+```
 
 ### 3. Artillery Multi-Phase Load Testing
 Automated ramp-up benchmark simulating 10 req/s warm-up up to 200 req/s peak flash-sale spikes:
 
-\`\`\`bash
+```bash
 cd ticket-backend
 npm run test:artillery
-\`\`\`
+```
 
 ---
 
@@ -141,7 +171,7 @@ npm run test:artillery
 * PostgreSQL & Redis instances (or local Docker containers)
 
 ### 1. Setup Backend:
-\`\`\`bash
+```bash
 cd ticket-backend
 npm install --legacy-peer-deps
 
@@ -150,16 +180,16 @@ npm run dev
 
 # OR run in 16-Core High-Concurrency Cluster mode:
 npm run dev:cluster
-\`\`\`
+```
 
 ### 2. Setup Frontend:
-\`\`\`bash
+```bash
 cd ticket-frontend
 npm install
 
 # Start Vite dev server:
 npm run dev
-\`\`\`
+```
 
 Open [http://localhost:5173](http://localhost:5173) in your browser!
 
