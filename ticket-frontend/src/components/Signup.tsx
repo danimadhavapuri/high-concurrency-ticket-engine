@@ -37,6 +37,7 @@ export default function Signup({ setUser, onSwitchToLogin, onClose }: SignupProp
   });
   const [error, setError] = useState<string>('');
   const [success, setSuccess] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -46,6 +47,7 @@ export default function Signup({ setUser, onSwitchToLogin, onClose }: SignupProp
     e.preventDefault();
     setError('');
     setSuccess('');
+    setLoading(true);
 
     try {
       const response = await fetch(`${API_BASE_URL}/api/auth/signup`, {
@@ -73,7 +75,9 @@ export default function Signup({ setUser, onSwitchToLogin, onClose }: SignupProp
       }
     } catch (err) {
       console.error('Signup error:', err);
-      setError('Cannot connect to server. Ensure ticket-backend is running.');
+      setError('Cannot connect to server. If Render backend is waking up, please wait 30 seconds and try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -202,9 +206,17 @@ export default function Signup({ setUser, onSwitchToLogin, onClose }: SignupProp
               )}
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white py-2.5 rounded-xl font-semibold text-sm shadow-lg shadow-blue-600/30 transition transform active:scale-95"
+                disabled={loading}
+                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 disabled:opacity-60 text-white py-2.5 rounded-xl font-semibold text-sm shadow-lg shadow-blue-600/30 transition transform active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
               >
-                Sign Up
+                {loading ? (
+                  <>
+                    <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                    <span>Creating Account...</span>
+                  </>
+                ) : (
+                  'Sign Up'
+                )}
               </button>
             </div>
 

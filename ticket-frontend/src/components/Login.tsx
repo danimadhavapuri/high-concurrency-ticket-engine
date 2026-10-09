@@ -6,10 +6,12 @@ export default function Login({ setUser, onSwitchToSignup, onClose }: LoginProps
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleLogin = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     setError('');
+    setLoading(true);
 
     try {
       const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
@@ -32,7 +34,9 @@ export default function Login({ setUser, onSwitchToSignup, onClose }: LoginProps
       }
     } catch (err) {
       console.error('Login error:', err);
-      setError('Cannot connect to server. Ensure ticket-backend is running.');
+      setError('Cannot connect to server. If Render backend is waking up, please wait 30 seconds and try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -127,9 +131,17 @@ export default function Login({ setUser, onSwitchToSignup, onClose }: LoginProps
               )}
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white py-2.5 rounded-xl font-semibold text-sm shadow-lg shadow-blue-600/30 transition transform active:scale-95"
+                disabled={loading}
+                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 disabled:opacity-60 text-white py-2.5 rounded-xl font-semibold text-sm shadow-lg shadow-blue-600/30 transition transform active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
               >
-                Sign In
+                {loading ? (
+                  <>
+                    <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                    <span>Signing In...</span>
+                  </>
+                ) : (
+                  'Sign In'
+                )}
               </button>
             </div>
 
