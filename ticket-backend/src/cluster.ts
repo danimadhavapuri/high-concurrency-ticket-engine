@@ -41,5 +41,5 @@ if (cluster.isPrimary) {
   process.on('SIGTERM', shutdown);
 } else {
   // Worker process: Boot the server engine on this specific CPU core
-  import('./server');
+  import('./server.js');
 }
