@@ -1,6 +1,7 @@
 # 🎬 High-Concurrency Movie Ticket Reservation Engine
 
 [![Live Demo](https://img.shields.io/badge/Live_Demo-Vercel-black?style=for-the-badge&logo=vercel)](https://high-concurrency-ticket-engine.vercel.app)
+[![CI Pipeline](https://github.com/danimadhavapuri/high-concurrency-ticket-engine/actions/workflows/ci.yml/badge.svg)](https://github.com/danimadhavapuri/high-concurrency-ticket-engine/actions)
 [![Node.js](https://img.shields.io/badge/Node.js-20+-68a063?style=for-the-badge&logo=node.js)](https://nodejs.org)
 [![React](https://img.shields.io/badge/React-19-61dafb?style=for-the-badge&logo=react)](https://react.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5+-3178c6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org)
