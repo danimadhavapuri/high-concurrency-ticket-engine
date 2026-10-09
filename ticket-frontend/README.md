@@ -1,16 +1,53 @@
-# React + Vite
+# 🎬 High-Concurrency Movie Ticket Reservation Engine
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A production-grade, distributed movie ticket booking system built with **React, TypeScript, Node.js, Redis, PostgreSQL, and Socket.io**. 
 
-Currently, two official plugins are available:
+Designed to prevent race conditions and double-booking under high concurrent traffic through **in-memory distributed locking (Redis)**, **atomic database transactions (PostgreSQL + Prisma)**, and **real-time WebSocket broadcasting**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## ⚡ Key Engineering Highlights
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- 🔒 **Distributed Concurrency Control:** Implemented temporary 3-minute seat reservation locks using Redis with automatic TTL expiration.
+- 🛡️ **Zero Double-Booking Guarantee:** Enforced database-level composite unique constraints (`@@unique([showtime_id, seat_id])`) wrapped in PostgreSQL `$transaction` rollbacks.
+- ⚡ **Real-Time Seat Synchronization:** Full-duplex WebSockets (Socket.io) broadcast live seat state updates (Selected / Held / Booked) across concurrent user sessions without polling.
+- 🔑 **Secure Authentication:** Stateless JWT authentication with salted Bcrypt password hashing and Zod schema validation.
+- 🧪 **Automated Concurrency Test Suite:** Vitest integration tests simulating 10 simultaneous race-condition requests to verify that exactly 1 acquires the lock.
 
-## Expanding the Oxlint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## 🛠️ Tech Stack
+
+- **Frontend:** React 19, TypeScript, Tailwind CSS, Zustand, Socket.io-client
+- **Backend:** Node.js, Express, TypeScript, Zod, Bcrypt, JWT
+- **Data & Caching:** PostgreSQL, Prisma ORM, Redis (ioredis)
+- **Testing:** Vitest, Supertest, ioredis-mock
+
+---
+
+## 🧪 Concurrency Test Proof
+
+To run the automated race condition test suite:
+
+\`\`\`bash
+cd ticket-backend
+npm test
+\`\`\`
+
+---
+
+## 🚀 Getting Started
+
+### 1. Start Backend:
+\`\`\`bash
+cd ticket-backend
+npm install
+npm run dev
+\`\`\`
+
+### 2. Start Frontend:
+\`\`\`bash
+cd ticket-frontend
+npm install
+npm run dev
+\`\`\`

@@ -5,10 +5,12 @@
   "main": "server.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",
+    "dev:cluster": "tsx src/cluster.ts",
     "build": "tsc",
     "start": "node dist/server.js",
     "test": "vitest run",
     "test:watch": "vitest",
+    "test:stress": "tsx tests/stressTest.ts",
     "prisma:generate": "prisma generate"
   },
   "keywords": [],
