@@ -151,7 +151,7 @@ export default function Signup({ setUser, onSwitchToLogin, onClose }: SignupProp
                 value={formData.name}
                 onChange={handleChange}
                 className={getInputStyle(formData.name)}
-                placeholder="Dani"
+                placeholder="Enter your full name"
               />
             </div>
 
@@ -164,7 +164,7 @@ export default function Signup({ setUser, onSwitchToLogin, onClose }: SignupProp
                 value={formData.email}
                 onChange={handleChange}
                 className={getInputStyle(formData.email)}
-                placeholder="dani@gmail.com"
+                placeholder="name@example.com"
               />
             </div>
 
@@ -177,7 +177,7 @@ export default function Signup({ setUser, onSwitchToLogin, onClose }: SignupProp
                 value={formData.phone}
                 onChange={handleChange}
                 className={getInputStyle(formData.phone)}
-                placeholder="+919876543210"
+                placeholder="+91 00000 00000"
               />
             </div>
 
@@ -190,7 +190,7 @@ export default function Signup({ setUser, onSwitchToLogin, onClose }: SignupProp
                 value={formData.password}
                 onChange={handleChange}
                 className={getInputStyle(formData.password)}
-                placeholder="••••••••"
+                placeholder="Enter password (min. 6 chars)"
               />
             </div>
 

@@ -99,7 +99,7 @@ export default function Login({ setUser, onSwitchToSignup, onClose }: LoginProps
                     ? 'border border-emerald-500/70 shadow-[0_0_12px_rgba(16,185,129,0.2)] bg-slate-800/90' 
                     : 'border border-slate-700/80 focus:border-blue-500'
                 }`}
-                placeholder="dani@gmail.com"
+                placeholder="name@example.com"
               />
             </div>
 
@@ -115,7 +115,7 @@ export default function Login({ setUser, onSwitchToSignup, onClose }: LoginProps
                     ? 'border border-emerald-500/70 shadow-[0_0_12px_rgba(16,185,129,0.2)] bg-slate-800/90' 
                     : 'border border-slate-700/80 focus:border-blue-500'
                 }`}
-                placeholder="••••••••"
+                placeholder="Enter your password"
               />
             </div>
 
