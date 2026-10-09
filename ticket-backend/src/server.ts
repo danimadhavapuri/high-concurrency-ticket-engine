@@ -15,9 +15,9 @@ server.headersTimeout = 66000;   // 66 seconds
 // Attach Socket.io to the HTTP server for real-time seat lock broadcasts
 initSocket(server);
 
-const PORT = process.env.PORT || 5000;
+const PORT = Number(process.env.PORT) || 5000;
 const PID = process.pid;
 
-server.listen(PORT, () => {
-  console.log(`🚀 [Worker PID: ${PID}] Engine active on http://localhost:${PORT}`);
+server.listen(PORT, '0.0.0.0', () => {
+  console.log(`🚀 [Worker PID: ${PID}] Engine active on port ${PORT}`);
 });
