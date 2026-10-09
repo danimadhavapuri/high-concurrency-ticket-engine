@@ -197,7 +197,10 @@ export default function MovieCatalog({ user, activeTab }) {
 
     fetch(`${API_BASE_URL}/api/bookings`, {
       method: 'POST',
-      headers: getAuthHeaders(),
+      headers: {
+        ...getAuthHeaders(),
+        ...(paymentDetails.idempotencyKey ? { 'Idempotency-Key': paymentDetails.idempotencyKey } : {})
+      },
       body: JSON.stringify({
         movieTitle: selectedMovie.title,
         seats: selectedSeats,
@@ -206,7 +209,8 @@ export default function MovieCatalog({ user, activeTab }) {
         email: paymentDetails.email || '',
         date: new Date().toLocaleDateString(),
         transactionId: paymentDetails.transactionId,
-        paymentMethod: paymentDetails.method
+        paymentMethod: paymentDetails.method,
+        idempotencyKey: paymentDetails.idempotencyKey
       }),
     })
       .then((res) => res.json())

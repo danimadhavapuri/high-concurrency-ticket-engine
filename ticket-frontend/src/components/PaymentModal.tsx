@@ -35,6 +35,10 @@ export default function PaymentModal({
     onClose();
   };
 
+  const [idempotencyKey] = useState<string>(
+    () => 'IDEMP_' + Math.random().toString(36).substring(2, 10).toUpperCase() + '_' + Date.now()
+  );
+
   const handlePay = (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -59,6 +63,7 @@ export default function PaymentModal({
         transactionId,
         method: paymentMethod.toUpperCase(),
         paidAmount: amount,
+        idempotencyKey,
       });
     }, 2000);
   };

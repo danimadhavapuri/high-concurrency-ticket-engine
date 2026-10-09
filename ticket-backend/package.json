@@ -11,6 +11,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:stress": "tsx tests/stressTest.ts",
+    "test:artillery": "npx artillery run artillery.yml",
     "prisma:generate": "prisma generate"
   },
   "keywords": [],
