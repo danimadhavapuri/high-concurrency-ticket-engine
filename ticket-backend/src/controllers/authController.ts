@@ -34,8 +34,9 @@ export async function handleSignup(req: Request, res: Response) {
     const passwordHash = await bcrypt.hash(password, SALT_ROUNDS);
 
     // Split name into first and last name for our Prisma User model
-    const [firstName = '', ...rest] = name.trim().split(' ');
-    const lastName = rest.join(' ') || firstName;
+    const nameParts = name.trim().split(/\s+/);
+    const firstName = nameParts[0] || '';
+    const lastName = nameParts.slice(1).join(' '); // Blank if user only entered a single name
 
     // 3. Save new user into PostgreSQL
     const newUser = await prisma.user.create({
@@ -55,13 +56,17 @@ export async function handleSignup(req: Request, res: Response) {
       { expiresIn: '24h' }
     );
 
+    const displayName = (newUser.last_name && newUser.last_name.toLowerCase() !== newUser.first_name.toLowerCase())
+      ? `${newUser.first_name} ${newUser.last_name}`
+      : newUser.first_name;
+
     return res.status(201).json({
       status: 'success',
       message: 'User registered successfully',
       token,
       user: {
         id: String(newUser.id),
-        name: `${newUser.first_name} ${newUser.last_name}`,
+        name: displayName,
         email: newUser.email,
         phone: newUser.phone_no,
       },
@@ -114,13 +119,17 @@ export async function handleLogin(req: Request, res: Response) {
       { expiresIn: '24h' }
     );
 
+    const displayName = (user.last_name && user.last_name.toLowerCase() !== user.first_name.toLowerCase())
+      ? `${user.first_name} ${user.last_name}`
+      : user.first_name;
+
     return res.status(200).json({
       status: 'success',
       message: 'Login successful',
       token,
       user: {
         id: String(user.id),
-        name: `${user.first_name} ${user.last_name}`,
+        name: displayName,
         email: user.email,
         phone: user.phone_no,
       },

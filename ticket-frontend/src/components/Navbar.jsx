@@ -11,6 +11,16 @@ export default function Navbar({
     setUser(null);
   };
 
+  // Helper to prevent showing duplicate names like "Dani Dani" -> "Dani"
+  const getCleanName = (name) => {
+    if (!name) return 'User';
+    const parts = name.trim().split(/\s+/);
+    if (parts.length === 2 && parts[0].toLowerCase() === parts[1].toLowerCase()) {
+      return parts[0];
+    }
+    return name;
+  };
+
   return (
     <header className="w-full text-white sticky top-0 z-40">
       {/* Top Bar: TicketHub Branding & Main Auth Action */}
@@ -19,7 +29,7 @@ export default function Navbar({
         
         {user ? (
           <div className="flex items-center gap-3">
-            <span className="text-xs text-slate-300">👋 Hi, <strong className="text-blue-400">{user.name}</strong></span>
+            <span className="text-xs text-slate-300">👋 Hi, <strong className="text-blue-400">{getCleanName(user.name)}</strong></span>
             <button
               onClick={handleLogout}
               className="bg-slate-800 hover:bg-slate-700 text-xs text-red-400 px-3 py-1 rounded transition"

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
+import { API_BASE_URL } from '../config/api';
 
 export default function ReviewSection({ movieId, user }) {
   const [reviews, setReviews] = useState([]);
@@ -8,7 +9,7 @@ export default function ReviewSection({ movieId, user }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const fetchReviews = () => {
-    fetch(`http://localhost:3000/api/reviews/${movieId}`)
+    fetch(`${API_BASE_URL}/api/reviews/${movieId}`)
       .then((res) => res.json())
       .then((data) => setReviews(Array.isArray(data) ? data : []))
       .catch((err) => console.error('Error fetching reviews:', err));
@@ -28,7 +29,7 @@ export default function ReviewSection({ movieId, user }) {
     setIsSubmitting(true);
     const userName = typeof user === 'object' ? user?.name : (user || 'Guest User');
 
-    fetch('http://localhost:3000/api/reviews', {
+    fetch(`${API_BASE_URL}/api/reviews`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -38,13 +39,19 @@ export default function ReviewSection({ movieId, user }) {
         comment
       })
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) throw new Error('Network response was not ok');
+        return res.json();
+      })
       .then(() => {
         toast.success('Review posted successfully! ⭐');
         setComment('');
         fetchReviews();
       })
-      .catch(() => toast.error('Failed to post review'))
+      .catch((err) => {
+        console.error('Review submit error:', err);
+        toast.error('Failed to post review');
+      })
       .finally(() => setIsSubmitting(false));
   };
 
