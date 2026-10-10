@@ -13,15 +13,16 @@ export interface Review {
 
 // Global reviews storage
 let reviews: Review[] = [
-  { id: 'r1', movieId: '1', user: 'Dani', rating: 5, comment: 'Mind-blowing Pandora visuals and underwater 3D CGI! James Cameron did it again.', createdAt: '2026-09-15' },
-  { id: 'r2', movieId: '1', user: 'Alex', rating: 5, comment: 'Epic cinematic scale. Worth watching on IMAX.', createdAt: '2026-09-18' },
-  { id: 'r3', movieId: '2', user: 'Sarah', rating: 5, comment: 'Emotional and funny! Woody and Forky are pure magic.', createdAt: '2026-09-20' },
-  { id: 'r4', movieId: '2', user: 'John', rating: 4, comment: 'Great animation quality and heartwarming ending for the gang.', createdAt: '2026-09-22' },
-  { id: 'r5', movieId: '3', user: 'Chris', rating: 5, comment: 'The ultimate superhero culmination! Portals scene gave me goosebumps.', createdAt: '2026-09-25' },
-  { id: 'r6', movieId: '3', user: 'Dani', rating: 5, comment: 'Best Marvel movie of all time. I love you 3000.', createdAt: '2026-09-27' },
-  { id: 'r7', movieId: '4', user: 'NolanFan', rating: 5, comment: 'Cillian Murphy delivered a masterclass. Ludwig Göransson score is haunting.', createdAt: '2026-10-01' },
-  { id: 'r8', movieId: '5', user: 'Miles_M', rating: 5, comment: 'The art style and multiverse animation are completely groundbreaking.', createdAt: '2026-10-03' },
-  { id: 'r9', movieId: '6', user: 'Cooper', rating: 5, comment: 'Hans Zimmer score + wormhole visuals make this timeless cinema.', createdAt: '2026-10-05' }
+  { id: 'r0', movieId: '1', user: 'Dani', rating: 5, comment: 'One of my all-time favorite songs! Pure romance and beautiful memories.', createdAt: '2026-10-09' },
+  { id: 'r1', movieId: '2', user: 'Dani', rating: 5, comment: 'Mind-blowing Pandora visuals and underwater 3D CGI! James Cameron did it again.', createdAt: '2026-09-15' },
+  { id: 'r2', movieId: '2', user: 'Alex', rating: 5, comment: 'Epic cinematic scale. Worth watching on IMAX.', createdAt: '2026-09-18' },
+  { id: 'r3', movieId: '3', user: 'Sarah', rating: 5, comment: 'Emotional and funny! Woody and Forky are pure magic.', createdAt: '2026-09-20' },
+  { id: 'r4', movieId: '3', user: 'John', rating: 4, comment: 'Great animation quality and heartwarming ending for the gang.', createdAt: '2026-09-22' },
+  { id: 'r5', movieId: '4', user: 'Chris', rating: 5, comment: 'The ultimate superhero culmination! Portals scene gave me goosebumps.', createdAt: '2026-09-25' },
+  { id: 'r6', movieId: '4', user: 'Dani', rating: 5, comment: 'Best Marvel movie of all time. I love you 3000.', createdAt: '2026-09-27' },
+  { id: 'r7', movieId: '5', user: 'NolanFan', rating: 5, comment: 'Cillian Murphy delivered a masterclass. Ludwig Göransson score is haunting.', createdAt: '2026-10-01' },
+  { id: 'r8', movieId: '6', user: 'Miles_M', rating: 5, comment: 'The art style and multiverse animation are completely groundbreaking.', createdAt: '2026-10-03' },
+  { id: 'r9', movieId: '7', user: 'Cooper', rating: 5, comment: 'Hans Zimmer score + wormhole visuals make this timeless cinema.', createdAt: '2026-10-05' }
 ];
 
 // GET /api/reviews/:movieId

@@ -7,6 +7,16 @@ const movies = [
   {
     id: '1',
     _id: '1',
+    title: 'Perfect',
+    genre: 'Romance',
+    price: 220,
+    rating: 4.9,
+    poster: 'https://images.unsplash.com/photo-1518895949257-7621c3c786d7?w=800',
+    trailerUrl: 'https://www.youtube.com/embed/2Vv-BfVoq4g'
+  },
+  {
+    id: '2',
+    _id: '2',
     title: 'Avatar: The Way of Water',
     genre: 'Sci-Fi',
     price: 350,
@@ -15,18 +25,18 @@ const movies = [
     trailerUrl: 'https://www.youtube.com/embed/d9MyW72ELq0'
   },
   {
-    id: '2',
-    _id: '2',
+    id: '3',
+    _id: '3',
     title: 'Toy Story 4',
     genre: 'Animation',
     price: 240,
     rating: 4.8,
-    poster: 'https://image.tmdb.org/t/p/w780/w9kR8qbmQ01HwnvK4alvnQ2v0Zw.jpg',
+    poster: 'https://m.media-amazon.com/images/M/MV5BMTYzMDM4NzkxOV5BMl5BanBnXkFtZTgwNzM1Mzg2NzM@._V1_FMjpg_UX1000_.jpg',
     trailerUrl: 'https://www.youtube.com/embed/wmiIUN-7qhE'
   },
   {
-    id: '3',
-    _id: '3',
+    id: '4',
+    _id: '4',
     title: 'Avengers: Endgame',
     genre: 'Action',
     price: 320,
@@ -35,8 +45,8 @@ const movies = [
     trailerUrl: 'https://www.youtube.com/embed/TcMBFSGVi1c'
   },
   {
-    id: '4',
-    _id: '4',
+    id: '5',
+    _id: '5',
     title: 'Oppenheimer',
     genre: 'Drama',
     price: 300,
@@ -45,8 +55,8 @@ const movies = [
     trailerUrl: 'https://www.youtube.com/embed/uYPbbksJxIg'
   },
   {
-    id: '5',
-    _id: '5',
+    id: '6',
+    _id: '6',
     title: 'Spider-Man: Across the Spider-Verse',
     genre: 'Animation',
     price: 260,
@@ -55,8 +65,8 @@ const movies = [
     trailerUrl: 'https://www.youtube.com/embed/cqGjhVJWtEg'
   },
   {
-    id: '6',
-    _id: '6',
+    id: '7',
+    _id: '7',
     title: 'Interstellar',
     genre: 'Sci-Fi',
     price: 280,

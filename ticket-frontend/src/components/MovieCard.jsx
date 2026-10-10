@@ -7,6 +7,10 @@ export default function MovieCard({ movie, onBookSeats }) {
           src={movie.poster} 
           alt={movie.title} 
           className="w-full h-full object-cover" 
+          onError={(e) => {
+            e.currentTarget.onerror = null;
+            e.currentTarget.src = 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500';
+          }}
         />
         <span className="absolute top-3 right-3 bg-slate-900/90 text-amber-400 font-bold text-xs px-2.5 py-1 rounded-full border border-slate-700 flex items-center gap-1">
           ⭐ {movie.rating}
