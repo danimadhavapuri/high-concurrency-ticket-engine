@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { io, Socket } from 'socket.io-client';
 import { useBookingStore } from '../store/useBookingStore';
 import { Seat, SeatUpdateEvent } from '../types/booking';
+import { API_BASE_URL } from '../config/api';
 
 interface SeatGridProps {
   showtimeId: number;
@@ -12,7 +13,7 @@ interface SeatGridProps {
 export const SeatGrid: React.FC<SeatGridProps> = ({
   showtimeId,
   seats,
-  backendUrl = 'http://localhost:5000',
+  backendUrl = API_BASE_URL,
 }) => {
   const {
     selectedSeatIds,

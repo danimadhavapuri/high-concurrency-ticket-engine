@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
 import SeatModal from '../components/SeatModal';
+import { SOCKET_URL } from '../config/api';
 
-const socket = io('http://localhost:3000');
+const socket = io(SOCKET_URL);
 
 export default function MovieBookingPage({ movie, user, onBack }) {
   const [selectedSeats, setSelectedSeats] = useState([]);

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
+import { API_BASE_URL } from '../config/api';
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState({ totalRevenue: 0, totalTicketsSold: 0, totalMovies: 0, totalBookings: 0 });
@@ -11,14 +12,14 @@ export default function AdminDashboard() {
   const [trailerUrl, setTrailerUrl] = useState('');
 
   const fetchStats = () => {
-    fetch('http://localhost:3000/api/admin/stats')
+    fetch(`${API_BASE_URL}/api/admin/stats`)
       .then((res) => res.json())
       .then((data) => setStats(data))
       .catch((err) => console.error('Error stats:', err));
   };
 
   const fetchMovies = () => {
-    fetch('http://localhost:3000/api/movies')
+    fetch(`${API_BASE_URL}/api/movies`)
       .then((res) => res.json())
       .then((data) => setMovies(data))
       .catch((err) => console.error('Error movies:', err));
@@ -36,7 +37,7 @@ export default function AdminDashboard() {
       return;
     }
 
-    fetch('http://localhost:3000/api/movies', {
+    fetch(`${API_BASE_URL}/api/movies`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ title, genre, price, poster, trailerUrl })
@@ -54,7 +55,7 @@ export default function AdminDashboard() {
   };
 
   const handleDeleteMovie = (id) => {
-    fetch(`http://localhost:3000/api/movies/${id}`, { method: 'DELETE' })
+    fetch(`${API_BASE_URL}/api/movies/${id}`, { method: 'DELETE' })
       .then(() => {
         toast.success('Movie deleted 🗑️');
         fetchMovies();
