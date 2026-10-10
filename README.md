@@ -198,5 +198,8 @@ Open [http://localhost:5173](http://localhost:5173) in your browser!
 
 ## 👨‍💻 Author
 **Dani Madhavapuri**  
-- GitHub: [@danimadhavapuri](https://github.com/danimadhavapuri)  
+- GitHub: [@danimadhavapuri](https://github.com/danimadhavapuri)
+- GitHub Repository: https://github.com/danimadhavapuri/high-concurrency-ticket-engine
 - Portfolio Live App: [high-concurrency-ticket-engine.vercel.app](https://high-concurrency-ticket-engine.vercel.app)
+- Cloud Backend API: https://high-concurrency-ticket-engine.onrender.com
+
