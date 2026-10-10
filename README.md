@@ -38,16 +38,20 @@ flowchart TD
     end
 
     subgraph Concurrency["Shield & State Synchronization"]
-        W1 & W2 & W16 --> Limiter["🛡️ Anti-Scalper Rate Limiter (20 req / 10s)"]
+        W1 --> Limiter["🛡️ Anti-Scalper Rate Limiter (20 req / 10s)"]
+        W2 --> Limiter
+        W16 --> Limiter
         Limiter --> Redis["⚡ Redis Distributed Lock Shield (O(1), 3-min TTL)"]
-        W1 & W2 & W16 --> Socket["🔌 Socket.io WebSocket Bus"]
+        W1 --> Socket["🔌 Socket.io WebSocket Bus"]
+        W2 --> Socket
+        W16 --> Socket
     end
 
     subgraph Persistence["ACID Persistence Engine"]
-        Redis -->|Only 1 Lock Winner Proceeds| DB[("🗄️ PostgreSQL + Prisma Transactions\n@@unique([showtime_id, seat_id])")]
+        Redis -->|"Only 1 Lock Winner Proceeds"| DB[("🗄️ PostgreSQL + Prisma Transactions")]
     end
 
-    Socket -.->|Real-Time Broadcast (Yellow / Red State)| Users
+    Socket -.->|"Live Broadcast: Yellow and Red Seats"| Users
 ```
 
 ### Detailed Flowchart Breakdown
