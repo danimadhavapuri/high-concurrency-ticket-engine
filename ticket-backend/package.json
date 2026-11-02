@@ -2,7 +2,7 @@
   "name": "ticket-backend",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "dist/server.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "dev:cluster": "tsx src/cluster.ts",

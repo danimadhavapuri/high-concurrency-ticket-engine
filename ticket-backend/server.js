@@ -1,3 +1,21 @@
+/**
+ * ==============================================================================
+ * ⚠️ LEGACY MONOLITH ARCHIVE (v1.0 Prototype)
+ * ==============================================================================
+ * This file was the initial standalone JavaScript prototype created during early
+ * wireframing.
+ *
+ * For the modern, production-grade, distributed TypeScript backend engine,
+ * please explore:
+ *   👉 src/server.ts         - Main cluster & HTTP server entrypoint
+ *   👉 src/app.ts            - Express API routing & middleware
+ *   👉 src/services/         - Redis Distributed Locking & Prisma ACID Transactions
+ *   👉 src/lib/socket.ts     - Real-Time WebSocket Seat Hold Engine
+ *   👉 src/controllers/      - Auth & Booking Controllers
+ *   👉 src/routes/           - Blockbuster Movies, Reviews, Bookings & Auth
+ * ==============================================================================
+ */
+
 const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
