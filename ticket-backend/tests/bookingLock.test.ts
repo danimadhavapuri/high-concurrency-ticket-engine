@@ -1,5 +1,6 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach, beforeAll, afterAll, vi } from 'vitest';
 import RedisMock from 'ioredis-mock';
+import http from 'http';
 
 // Intercept Redis module with in-memory mock before app load
 vi.mock('../src/lib/redis', () => {
@@ -17,6 +18,20 @@ import { redis } from '../src/lib/redis';
 describe('POST /api/bookings/lock - Concurrency & Race Condition Tests', () => {
   const showtimeId = 101;
   const seatIds = [12];
+  let server: http.Server;
+
+  beforeAll(async () => {
+    await new Promise<void>((resolve) => {
+      server = http.createServer(app);
+      server.listen(0, '127.0.0.1', () => resolve());
+    });
+  });
+
+  afterAll(async () => {
+    await new Promise<void>((resolve) => {
+      server.close(() => resolve());
+    });
+  });
 
   beforeEach(async () => {
     await redis.flushdb();
@@ -26,7 +41,7 @@ describe('POST /api/bookings/lock - Concurrency & Race Condition Tests', () => {
     const TOTAL_CONCURRENT_REQUESTS = 10;
 
     const lockRequests = Array.from({ length: TOTAL_CONCURRENT_REQUESTS }, (_, index) =>
-      request(app)
+      request(server)
         .post('/api/bookings/lock')
         .send({
           showtimeId,
@@ -46,14 +61,14 @@ describe('POST /api/bookings/lock - Concurrency & Race Condition Tests', () => {
 
   it('should prevent a different user from acquiring a lock on an already locked seat', async () => {
     // 1. User 1 acquires lock on seat 12
-    const firstAttempt = await request(app)
+    const firstAttempt = await request(server)
       .post('/api/bookings/lock')
       .send({ showtimeId, seatIds, userId: 1 });
 
     expect(firstAttempt.status).toBe(200);
 
     // 2. User 2 attempts to lock the same seat (should fail)
-    const secondAttempt = await request(app)
+    const secondAttempt = await request(server)
       .post('/api/bookings/lock')
       .send({ showtimeId, seatIds, userId: 2 });
 
